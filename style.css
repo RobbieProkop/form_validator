@@ -6,7 +6,35 @@
   padding: 0;
 }
 
-body {
-  background-color: #000;
+body,
+html {
+  background-color: #222;
+  color: #fff;
   font-family: "Montserrat", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.container {
+  background-color: #7f8f9f;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(139, 137, 137, 0.3);
+  width: 500px;
+}
+
+h2 {
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.form {
+  padding: 30px 40px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  position: relative;
 }
