@@ -12,7 +12,10 @@ const showError = (input, message) => {
   const small = formControl.querySelector("small");
   small.innerText = message;
 };
-const showSuccess = (input) => {};
+const showSuccess = (input) => {
+  const formControl = input.parentElement;
+  formControl.className = "form-control success";
+};
 
 //Add Event Listener to for msubmit
 form.addEventListener("submit", (e) => {
