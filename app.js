@@ -2,6 +2,7 @@
 //If statements for everything
 const form = document.getElementById("form");
 const username = document.getElementById("username");
+const email = document.getElementById("email");
 const password = document.getElementById("password");
 const password2 = document.getElementById("password2");
 
@@ -23,6 +24,25 @@ form.addEventListener("submit", (e) => {
 
   if (!username.value) {
     showError(username, "Please fill in the Username");
+  } else {
+    showSuccess(username);
   }
-  showSuccess(username);
+
+  if (!email.value) {
+    showError(email, "Please enter an email");
+  } else {
+    showSuccess(email);
+  }
+
+  if (!password.value) {
+    showError(password, "Please a password between 2-10 characters");
+  } else {
+    showSuccess(password);
+  }
+
+  if (!password2.value) {
+    showError(password2, "Password confirmation required");
+  } else {
+    showSuccess(password2);
+  }
 });
