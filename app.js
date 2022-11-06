@@ -4,7 +4,7 @@ const form = document.getElementById("form");
 const username = document.getElementById("username");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
-const password2 = document.getElementById("password2");
+const password2 = document.getElementById("confirm-password");
 
 //showError function
 const showError = (input, message) => {
@@ -18,11 +18,14 @@ const showSuccess = (input) => {
   formControl.className = "form-control success";
 };
 
-// return String(email)
-//     .toLowerCase()
-//     .match(
-//       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-//     );
+//check to make sure required input is present
+const checkRequired = (input) => {
+  console.log("input :>> ", input);
+  if (!input.value) {
+    return showError(input, `${input.id} is required`);
+  }
+  showSuccess(input);
+};
 
 // CHeck for valid email
 const isValidEmail = (email) => {
@@ -37,29 +40,36 @@ const isValidEmail = (email) => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (!username.value) {
-    showError(username, "Please fill in the Username");
-  } else {
-    showSuccess(username);
-  }
+  checkRequired(username);
+  checkRequired(email);
+  checkRequired(password);
+  checkRequired(password2);
 
-  if (!email.value) {
-    showError(email, "Please enter an email");
-  } else if (!isValidEmail(email.value)) {
-    showError(email, "Please enter a valid email");
-  } else {
-    showSuccess(email);
-  }
+  // Simple conditional validation. Not good clean practice
 
-  if (!password.value) {
-    showError(password, "Please a password between 2-10 characters");
-  } else {
-    showSuccess(password);
-  }
+  // if (!username.value) {
+  //   showError(username, "Please fill in the Username");
+  // } else {
+  //   showSuccess(username);
+  // }
 
-  if (!password2.value) {
-    showError(password2, "Password confirmation required");
-  } else {
-    showSuccess(password2);
-  }
+  // if (!email.value) {
+  //   showError(email, "Please enter an email");
+  // } else if (!isValidEmail(email.value)) {
+  //   showError(email, "Please enter a valid email");
+  // } else {
+  //   showSuccess(email);
+  // }
+
+  // if (!password.value) {
+  //   showError(password, "Please a password between 2-10 characters");
+  // } else {
+  //   showSuccess(password);
+  // }
+
+  // if (!password2.value) {
+  //   showError(password2, "Password confirmation required");
+  // } else {
+  //   showSuccess(password2);
+  // }
 });
