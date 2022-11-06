@@ -6,25 +6,31 @@ const email = document.getElementById("email");
 const password = document.getElementById("password");
 const password2 = document.getElementById("confirm-password");
 
-//showError function
 const showError = (input, message) => {
   const formControl = input.parentElement;
   formControl.className = "form-control error";
   const small = formControl.querySelector("small");
   small.innerText = message;
 };
+
 const showSuccess = (input) => {
   const formControl = input.parentElement;
   formControl.className = "form-control success";
 };
 
 //check to make sure required input is present
-const checkRequired = (input) => {
-  console.log("input :>> ", input);
-  if (!input.value) {
-    return showError(input, `${input.id} is required`);
-  }
-  showSuccess(input);
+const checkRequired = (inputArr) => {
+  console.log("inputArr :>> ", inputArr);
+  inputArr.forEach((input) => {
+    if (!input.value.trim()) {
+      return showError(input, `${getFieldName(input)} is required`);
+    }
+    if (input.id === "email") {
+      console.log("input.value :>> ", input.value);
+      isValidEmail(input.value);
+    }
+    showSuccess(input);
+  });
 };
 
 // CHeck for valid email
@@ -36,14 +42,15 @@ const isValidEmail = (email) => {
     );
 };
 
+const getFieldName = (input) => {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+};
+
 //Add Event Listener to for msubmit
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  checkRequired(username);
-  checkRequired(email);
-  checkRequired(password);
-  checkRequired(password2);
+  checkRequired([username, email, password, password2]);
 
   // Simple conditional validation. Not good clean practice
 
