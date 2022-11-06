@@ -54,6 +54,19 @@ const checkLength = (input, min, max) => {
   showSuccess(input);
 };
 
+//check password complexity
+const checkPassword = (password) => {
+  // const re = /^(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[0-9]+)(?=.*[!@#$%^&*]+)$/
+  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,20})/;
+  if (!re.test(password.value)) {
+    return showError(
+      password,
+      "Must contain: uppercase, lowercase, number, special and be 6-20 characters long"
+    );
+  }
+  showSuccess(password);
+};
+
 // match passwords
 const matchPasswords = (password, password2) => {
   if (password.value !== password2.value) {
@@ -68,7 +81,8 @@ form.addEventListener("submit", (e) => {
 
   checkRequired([username, email, password, password2]);
   checkLength(username, 3, 15);
-  checkLength(password, 6, 25);
+  checkPassword(password);
+
   checkEmail(email);
   matchPasswords(password, password2);
 
