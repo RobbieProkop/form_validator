@@ -23,16 +23,22 @@ const getFieldName = (input) => {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 };
 
+// CHeck for valid email
+const checkEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!re.test(email.value)) {
+    return showError(email, `Please enter a valid email`);
+  }
+  showSuccess(email);
+};
+
 //check to make sure required input is present
 const checkRequired = (inputArr) => {
   inputArr.forEach((input) => {
     if (!input.value.trim()) {
       return showError(input, `${getFieldName(input)} is required`);
     }
-    // if (input.id === "email") {
-    //   console.log("obj :>> ", isValidEmail(input));
-    //   isValidEmail(input.value);
-    // }
     showSuccess(input);
   });
 };
@@ -48,13 +54,12 @@ const checkLength = (input, min, max) => {
   showSuccess(input);
 };
 
-// CHeck for valid email
-const isValidEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
+// match passwords
+const matchPasswords = (password, password2) => {
+  if (password.value !== password2.value) {
+    return showError(password2, "Passwords do not match");
+  }
+  showSuccess(password2);
 };
 
 //Add Event Listener to for msubmit
@@ -64,6 +69,8 @@ form.addEventListener("submit", (e) => {
   checkRequired([username, email, password, password2]);
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
+  checkEmail(email);
+  matchPasswords(password, password2);
 
   // Simple conditional validation. Not good clean practice
 
